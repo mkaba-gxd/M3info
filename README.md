@@ -1,6 +1,6 @@
 # M3info
 Sample ID または Coustomer ID から検体情報を取得する。\
-表示される検体情報の各項目は以下の通り。
+表示される検体情報の各項目は以下のとおり。
 | 項目             | 内容              |
 |:-----------------|:------------------|
 |SAMPLE_ID         |Sample ID          |
@@ -13,7 +13,7 @@ Sample ID または Coustomer ID から検体情報を取得する。\
 |DIAGNOSIS_NAME    |疾患名             |
 |OCCURRED_ORGAN    |採取部位           |
 |BIOPSY_OR_SURGERY |生検または手術検体 |
-|Clinician         |依頼医師名         |
+|Clinician         |担当医師名         |
 |Institution       |施設名             |
 |Cohort            |コホート           |
 |Timepoint         |タイムポイント     |

@@ -16,7 +16,7 @@ def sampleid_query(sid) :
     AND ghl.idx = (SELECT MAX(idx) FROM gc_history_log WHERE SAMPLE_ID = gqs.SAMPLE_ID)
     INNER JOIN gxd.tb_order_line tol
     ON tol.sample_id = gp.SAMPLE_ID
-    INNER JOIN gxd.tb_polaris_mst tpm
+    LEFT OUTER JOIN gxd.tb_polaris_mst tpm
     ON tpm.patient_id = gp.PATIENT_NO
     WHERE gp.SAMPLE_ID = '{sid}'
     """
