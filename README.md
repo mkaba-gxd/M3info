@@ -1,22 +1,24 @@
 # M3info
 Sample ID または Coustomer ID から検体情報を取得する。\
 表示される検体情報の各項目は以下のとおり。
-| 項目             | 内容              |
-|:-----------------|:------------------|
-|SAMPLE_ID         |Sample ID          |
-|PATIENT_NO        |Patient ID         |
-|BATCH             |バッチフォルダ名   |
-|GENDER            |性別               |
-|BIRTH_DATE        |生年月日           |
-|AGE               |年齢               |
-|SAMPLING_DATE     |検体採取日         |
-|DIAGNOSIS_NAME    |疾患名             |
-|OCCURRED_ORGAN    |採取部位           |
-|BIOPSY_OR_SURGERY |生検または手術検体 |
-|Clinician         |担当医師名         |
-|Institution       |施設名             |
-|Cohort            |コホート           |
-|Timepoint         |タイムポイント     |
+| 項目             | 内容              |verbose |
+|:-----------------|:------------------|:-------|
+|SAMPLE_ID         |Sample ID          |        |
+|PATIENT_NO        |Patient ID         |        |
+|BATCH             |バッチフォルダ名   |        |
+|GENDER            |性別               | True   |
+|BIRTH_DATE        |生年月日           | True   |
+|AGE               |年齢               | True   |
+|SAMPLING_DATE     |検体採取日         | True   |
+|DIAGNOSIS_NAME    |疾患名             |        |
+|OCCURRED_ORGAN    |採取部位           | True   |
+|BIOPSY_OR_SURGERY |生検または手術検体 | True   |
+|Clinician         |担当医師名         | True   |
+|Institution       |施設名             |        |
+|Cohort            |コホート           |        |
+|Timepoint         |タイムポイント     | True   |
+|ANAL_STATUS       |解析ステータス     |        |
+|REPORT_DATE       |レポート返却日     | True   |
 
 ## エイリアスの作成 ※ 初回のみ
 ~/bin フォルダ直下に以下のコマンドを記載したテキストファイル M3info を作成し、実行権限を付与する。\

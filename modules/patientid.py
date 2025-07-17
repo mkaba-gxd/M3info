@@ -1,12 +1,13 @@
 import pandas as pd
 from .func import *
 
-use_column = ['PATIENT_NO','SAMPLE_ID','BATCH','GENDER','BIRTH_DATE','AGE','SAMPLING_DATE','DIAGNOSIS_NAME','OCCURRED_ORGAN','BIOPSY_OR_SURGERY','Clinician','Institution','Cohort','Timepoint']
+use_column_simp = ['PATIENT_NO','SAMPLE_ID','BATCH','DIAGNOSIS_NAME','Institution','Cohort','ANAL_STATUS']
+use_column_comp = ['PATIENT_NO','SAMPLE_ID','BATCH','GENDER','BIRTH_DATE','AGE','SAMPLING_DATE','DIAGNOSIS_NAME','OCCURRED_ORGAN','BIOPSY_OR_SURGERY','Clinician','Institution','Cohort','Timepoint','ANAL_STATUS','REPORT_DATE']
 
 def patientid_query(pid) :
 
     query = f"""
-    SELECT tesh.run_id, concat(tesh.equip_side, tesh.fc_id) AS sub_name, gp.SAMPLE_ID, gp.PATIENT_NO, gp.GENDER, gp.BIRTH_DATE, gp.AGE, gp.SAMPLING_DATE, gp.PI_NAME AS Clinician, gp.OCCURRED_ORGAN, gp.DIAGNOSIS_NAME, gp.PRJ_TYPE, tol.cohort AS Cohort, tol.timepoint AS Timepoint, tpm.pi_comp AS Institution, tol.biopsy_or_surgery AS BIOPSY_OR_SURGERY
+    SELECT tesh.run_id, concat(tesh.equip_side, tesh.fc_id) AS sub_name, gp.SAMPLE_ID, gp.PATIENT_NO, gp.GENDER, gp.BIRTH_DATE, gp.AGE, gp.SAMPLING_DATE, gp.PI_NAME AS Clinician, gp.OCCURRED_ORGAN, gp.DIAGNOSIS_NAME, gp.PRJ_TYPE, tol.cohort AS Cohort, tol.timepoint AS Timepoint, tpm.pi_comp AS Institution, tol.biopsy_or_surgery AS BIOPSY_OR_SURGERY, ghl.ANAL_STATUS, ghl.REPORT_DATE
     FROM gxd.tb_expr_seq_header tesh
     INNER JOIN gxd.gc_qc_sample gqs
     ON tesh.run_id = gqs.run_id
@@ -27,6 +28,7 @@ def patientid_query(pid) :
 def run_patientid(args):
 
     pid = args.patient_id
+    verbose = args.verbose
     directory = args.directory
 
     df_info = getinfo(patientid_query(pid))
@@ -35,6 +37,14 @@ def run_patientid(args):
 
     df_info['PRJ_TYPE'] = df_info['PRJ_TYPE'].str.replace('EWES',"eWES")
     df_info['SAMPLING_DATE'] = df_info['SAMPLING_DATE'].dt.date
+    df_info['REPORT_DATE'] = pd.to_datetime(df_info['REPORT_DATE'], errors='coerce')
+    df_info['REPORT_DATE'] = df_info['REPORT_DATE'].dt.date
     df_info['BATCH'] = [ Search_fcDir(df_info['sub_name'][i], Path(os.path.join(directory, df_info['PRJ_TYPE'][i]))) for i in range(df_info.shape[0]) ]
 
-    print(df_info[use_column].T)
+    if verbose :
+        df_info = df_info[use_column_comp]
+    else :
+        df_info = df_info[use_column_simp]
+
+    print(df_info.T)
+
