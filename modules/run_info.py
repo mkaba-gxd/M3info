@@ -64,15 +64,18 @@ def run_info(args) :
         init("No matching data found.")
 
     df_info['PRJ_TYPE'] = df_info['PRJ_TYPE'].str.replace('EWES',"eWES")
+    df_info['Institution'] = df_info['Institution'].str.replace('　','')
+    df_info['Institution'] = df_info['Institution'].str.replace('(','（')
+    df_info['Institution'] = df_info['Institution'].str.replace(')','）')
     df_info['SAMPLING_DATE'] = df_info['SAMPLING_DATE'].dt.date
     df_info['REPORT_DATE'] = pd.to_datetime(df_info['REPORT_DATE'], errors='coerce')
     df_info['REPORT_DATE'] = df_info['REPORT_DATE'].dt.date
     df_info['BATCH'] = [ Search_fcDir(df_info['sub_name'][i], Path(os.path.join(directory, df_info['PRJ_TYPE'][i]))) for i in range(df_info.shape[0]) ]
 
     if verbose :
-        df_info = df_info[use_column_comp]
+        df_info = df_info[use_column_comp].drop_duplicates()
     else :
-        df_info = df_info[use_column_simp]
+        df_info = df_info[use_column_simp].drop_duplicates()
 
     print(df_info.T)
 
