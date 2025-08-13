@@ -16,6 +16,7 @@ Sample ID または Coustomer ID から検体情報を取得する。\
 |BIOPSY_OR_SURGERY |生検または手術検体 | True   |
 |Clinician         |担当医師名         | True   |
 |Institution       |施設名             |        |
+|Title             |臨床試験名         | True   |
 |Cohort            |コホート           |        |
 |Timepoint         |タイムポイント     | True   |
 |ANAL_STATUS       |解析ステータス     |        |
