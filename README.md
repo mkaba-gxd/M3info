@@ -6,6 +6,7 @@ Sample ID または Coustomer ID から検体情報を取得する。\
 |:-----------------|:------------------|:-------|
 |SAMPLE_ID         |Sample ID          |        |
 |PATIENT_NO        |Patient ID         |        |
+|Specimen_ID       |Specimen ID        | True   |
 |BATCH             |バッチフォルダ名   |        |
 |GENDER            |性別               | True   |
 |BIRTH_DATE        |生年月日           | True   |

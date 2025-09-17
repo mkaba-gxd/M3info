@@ -2,11 +2,11 @@ import pandas as pd
 from .func import *
 
 use_column_simp = ['SAMPLE_ID','PATIENT_NO','BATCH','DIAGNOSIS_NAME','Institution','Cohort','ANAL_STATUS']
-use_column_comp = ['SAMPLE_ID','PATIENT_NO','BATCH','GENDER','BIRTH_DATE','AGE','SAMPLING_DATE','DIAGNOSIS_NAME','OCCURRED_ORGAN','BIOPSY_OR_SURGERY','Clinician','Institution','Title','Cohort','Timepoint','ANAL_STATUS','REPORT_DATE']
+use_column_comp = ['SAMPLE_ID','PATIENT_NO','Specimen_ID','BATCH','GENDER','BIRTH_DATE','AGE','SAMPLING_DATE','DIAGNOSIS_NAME','OCCURRED_ORGAN','BIOPSY_OR_SURGERY','Clinician','Institution','Title','Cohort','Timepoint','ANAL_STATUS','REPORT_DATE']
 
 def sampleid_query(sid) :
     query = f"""
-    SELECT tesh.run_id, concat(tesh.equip_side, tesh.fc_id) AS sub_name, gp.SAMPLE_ID, gp.PATIENT_NO, gp.GENDER, gp.BIRTH_DATE, gp.AGE, gp.SAMPLING_DATE, gp.PI_NAME AS Clinician, gp.OCCURRED_ORGAN, gp.DIAGNOSIS_NAME, gp.PRJ_TYPE, tol.cohort AS Cohort, tol.timepoint AS Timepoint, cctm.CLINICAL_TRIAL_NAME AS Title, cpcm.PI_COMP_NAME AS Institution, tol.biopsy_or_surgery AS BIOPSY_OR_SURGERY, ghl.ANAL_STATUS, ghl.REPORT_DATE
+    SELECT tesh.run_id, concat(tesh.equip_side, tesh.fc_id) AS sub_name, gp.SAMPLE_ID, gp.PATIENT_NO, tol.customer_sample_id AS Specimen_ID, gp.GENDER, gp.BIRTH_DATE, gp.AGE, gp.SAMPLING_DATE, gp.PI_NAME AS Clinician, gp.OCCURRED_ORGAN, gp.DIAGNOSIS_NAME, gp.PRJ_TYPE, tol.cohort AS Cohort, tol.timepoint AS Timepoint, cctm.CLINICAL_TRIAL_NAME AS Title, cpcm.PI_COMP_NAME AS Institution, tol.biopsy_or_surgery AS BIOPSY_OR_SURGERY, ghl.ANAL_STATUS, ghl.REPORT_DATE
     FROM gxd.tb_expr_seq_header tesh
     INNER JOIN gxd.gc_qc_sample gqs
     ON tesh.run_id = gqs.run_id
@@ -32,7 +32,7 @@ def sampleid_query(sid) :
 def patientid_query(pid) :
 
     query = f"""
-    SELECT tesh.run_id, concat(tesh.equip_side, tesh.fc_id) AS sub_name, gp.SAMPLE_ID, gp.PATIENT_NO, gp.GENDER, gp.BIRTH_DATE, gp.AGE, gp.SAMPLING_DATE, gp.PI_NAME AS Clinician, gp.OCCURRED_ORGAN, gp.DIAGNOSIS_NAME, gp.PRJ_TYPE, tol.cohort AS Cohort, tol.timepoint AS Timepoint, cctm.CLINICAL_TRIAL_NAME AS Title, cpcm.PI_COMP_NAME AS Institution, tol.biopsy_or_surgery AS BIOPSY_OR_SURGERY, ghl.ANAL_STATUS, ghl.REPORT_DATE
+    SELECT tesh.run_id, concat(tesh.equip_side, tesh.fc_id) AS sub_name, gp.SAMPLE_ID, gp.PATIENT_NO, tol.customer_sample_id AS Specimen_ID, gp.GENDER, gp.BIRTH_DATE, gp.AGE, gp.SAMPLING_DATE, gp.PI_NAME AS Clinician, gp.OCCURRED_ORGAN, gp.DIAGNOSIS_NAME, gp.PRJ_TYPE, tol.cohort AS Cohort, tol.timepoint AS Timepoint, cctm.CLINICAL_TRIAL_NAME AS Title, cpcm.PI_COMP_NAME AS Institution, tol.biopsy_or_surgery AS BIOPSY_OR_SURGERY, ghl.ANAL_STATUS, ghl.REPORT_DATE
     FROM gxd.tb_expr_seq_header tesh
     INNER JOIN gxd.gc_qc_sample gqs
     ON tesh.run_id = gqs.run_id
